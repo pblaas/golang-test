@@ -1,9 +1,39 @@
 <html>
-	{{ range . }}
-        <li>
-            <blockquote>{{ .Shout }}</blockquote>
-            <p>- <cite>{{ .Name }}</cite></time></p>
-	    </li>
-	{{ end }}
-</html>
+  <head>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <table class="table table-striped">
+	  <thead><tr><th>Name</th><th>Shout</th></tr></thead>
+	  <tbody>
+	    {{ range . }}
+	    <tr><td> {{ .Name }} </td> <td>{{ .Shout }}</td></tr>
+	    {{ end }}
+	</tbody>
+  </table>
+  <hr>
+  <body>
+    <div class="container">
+      <div class="page-title">
+        <h1>test</h1>
+        <p class="lead">Little shoutbox</p>
+        <hr />
+      </div>
 
+      <form action="/submit" method="POST">
+	<div class="form-group">
+		<label for="InputUsername">Username</label>
+	 	<input type="text" class="form-control" name="Username" placeholder="Username">
+	</div>
+
+        <div class="form-group">
+          <textarea class="form-control" name="Shout" cols="30" rows="5"></textarea>
+        </div>
+
+        <div class="form-group">
+          <input type="submit" class="btn btn-primary pull-right" />
+        </div>
+      </form>
+    </div>
+    <script src="/js/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+<html>
+	{{ range . }}
+        <li>
+            <blockquote>{{ .Shout }}</blockquote>
+            <p>- <cite>{{ .Name }}</cite></time></p>
+	    </li>
+	{{ end }}
+</html>
+

@@ -8,12 +8,14 @@ import (
 	"log"
 	"net/http"
 	"path"
+	"time"
 )
 
 type Shoutbox struct {
-	ID    bson.ObjectId `bson:"_id,omitempty"`
-	Name  string        `form:"Username"`
-	Shout string        `form:"Shout"`
+	ID        bson.ObjectId `bson:"_id,omitempty"`
+	Name      string        `form:"Username"`
+	Shout     string        `form:"Shout"`
+	Timestamp time.Time
 }
 
 func Submitform(w http.ResponseWriter, r *http.Request) {
@@ -32,8 +34,9 @@ func Submitform(w http.ResponseWriter, r *http.Request) {
 	if r.Form["Username"] != nil {
 
 		entry := &Shoutbox{
-			Name:  r.FormValue("Username"),
-			Shout: r.FormValue("Shout"),
+			Name:      r.FormValue("Username"),
+			Shout:     r.FormValue("Shout"),
+			Timestamp: time.Now(),
 		}
 		err = c.Insert(entry)
 		if err != nil {
@@ -41,7 +44,7 @@ func Submitform(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	http.Redirect(w, r, "/results", http.StatusTemporaryRedirect)
+	http.Redirect(w, r, "/shouts", http.StatusTemporaryRedirect)
 }
 
 func Mainpage(w http.ResponseWriter, r *http.Request) {
@@ -78,7 +81,7 @@ func Mainpage(w http.ResponseWriter, r *http.Request) {
 func main() {
 	//http.Handle("/input", http.FileServer(http.Dir("public/input")))
 	http.HandleFunc("/submit", Submitform)
-	http.HandleFunc("/results", Mainpage)
+	http.HandleFunc("/shouts", Mainpage)
 	http.Handle("/", http.FileServer(http.Dir("public/")))
 	fmt.Println("Server started!")
 	http.ListenAndServe(":3000", nil)
