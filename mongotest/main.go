@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
+	"log"
 )
 
 type Person struct {
-	Name string
+	Name  string
 	Phone string
 }
 
@@ -24,7 +24,7 @@ func main() {
 
 	c := session.DB("mgo").C("people")
 	err = c.Insert(&Person{"Ale", "+55 53 81818 282"},
-		       &Person{"Cla", "+55 33 38383 282"})
+		&Person{"Cla", "+55 33 38383 282"})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -34,7 +34,5 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	
 	fmt.Println("Phone:", result.Phone)
 }
-
