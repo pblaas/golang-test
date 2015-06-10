@@ -1,10 +1,20 @@
 package main
 
 import (
+	"fmt"
+	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
 	"net/http"
 )
 
+type Myshout struct {
+	Username string
+	Shout    string
+}
+
 func main() {
+	http.Handle("/input", http.FileServer(http.Dir("public/input")))
 	http.Handle("/", http.FileServer(http.Dir("public")))
+	fmt.Println("Server started!")
 	http.ListenAndServe(":3000", nil)
 }
