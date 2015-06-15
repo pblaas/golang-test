@@ -55,7 +55,7 @@ func Submitform(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	http.Redirect(w, r, "/shouts", http.StatusTemporaryRedirect)
+	http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
 }
 
 func Mainpage(w http.ResponseWriter, r *http.Request) {
@@ -94,8 +94,9 @@ func Mainpage(w http.ResponseWriter, r *http.Request) {
 func main() {
 	//http.Handle("/input", http.FileServer(http.Dir("public/input")))
 	http.HandleFunc("/submit", Submitform)
-	http.HandleFunc("/shouts", Mainpage)
-	http.Handle("/", http.FileServer(http.Dir("public/")))
+	//http.HandleFunc("/shouts", Mainpage)
+	http.HandleFunc("/", Mainpage)
+	//http.Handle("/", http.FileServer(http.Dir("public/")))
 	fmt.Println("Server started!")
 	http.ListenAndServe(":3000", nil)
 }
