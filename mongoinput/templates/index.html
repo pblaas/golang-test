@@ -1,32 +1,46 @@
-<html>
-  <head>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-  </head>
-  <table class="table table-striped">
-	  <thead><tr><th>Name</th><th>Shout</th></tr></thead>
-	  <tbody>
-	    {{ range . }}
-	    <tr><td> {{ .Name }} </td> <td>{{ .Shout }}</td></tr>
-	    {{ end }}
-	</tbody>
-  </table>
-  <hr>
-  <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <title>ShoutBox</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<style type="text/css">
+	.welcome-shout{
+		margin: 20px;
+	}
+</style>
+</head>
+
+    <body>
+<div class="welcome-shout">
+    <div class="alert alert-success fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Note!</strong> Shoutbox succesfully loaded. 
+    </div>
+</div>
     <div class="container">
+	    
       <div class="page-title">
-        <h1>test</h1>
-        <p class="lead">Little shoutbox</p>
+	      <p class="lead">Shoutbox</p>
         <hr />
       </div>
 
       <form action="/submit" method="POST">
-	<div class="form-group">
-		<label for="InputUsername">Username</label>
-	 	<input type="text" class="form-control" name="Username" placeholder="Username">
-	</div>
+
+	 <div class="form-group">
+	 	<div class="input-group">
+			<label class="sr-only" for="InputName">Name</label>
+			<!-- <span class="input-group-addon" id="InputName">U</span> -->
+			<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+             		<input class="text" id="InputName" name="Username" class="form-control" placeholder="Your name" aria_describeby="user-input"></input>
+  	  	</div>
+	 </div>
+
 
         <div class="form-group">
-          <textarea class="form-control" name="Shout" cols="30" rows="5"></textarea>
+          <textarea class="form-control" name="Shout" placeholder="What is on your mind?" cols="30" rows="5"></textarea>
         </div>
 
         <div class="form-group">
@@ -34,6 +48,15 @@
         </div>
       </form>
     </div>
-    <script src="/js/bootstrap.min.js"></script>
   </body>
+  <table class="table table-striped">
+          <thead><tr><th>Name</th><th>Shout</th></tr></thead>
+          <tbody>
+            {{ range . }}
+            <tr><td> {{ .Name }} </td> <td>{{ .Shout }}</td></tr>
+            {{ end }}
+        </tbody>
+</table>
+
+
 </html>

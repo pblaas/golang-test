@@ -8,14 +8,16 @@ import (
 	"log"
 	"net/http"
 	"path"
+	"strings"
 	"time"
 )
 
 type Shoutbox struct {
-	ID        bson.ObjectId `bson:"_id,omitempty"`
-	Name      string        `form:"Username"`
-	Shout     string        `form:"Shout"`
-	Timestamp time.Time
+	ID         bson.ObjectId `bson:"_id,omitempty"`
+	Name       string        `form:"Username"`
+	Shout      string        `form:"Shout"`
+	Remoteaddr string
+	Timestamp  time.Time
 }
 
 func Submitform(w http.ResponseWriter, r *http.Request) {
@@ -30,17 +32,26 @@ func Submitform(w http.ResponseWriter, r *http.Request) {
 	session.SetMode(mgo.Monotonic, true)
 
 	c := session.DB("mgodb").C("shouts")
+	var shoutname string
+	if r.FormValue("Shout") != "" {
 
-	if r.Form["Username"] != nil {
-
+		s := strings.Split(r.RemoteAddr, ":")
+		ip := s[0]
+		if r.FormValue("Username") == "" {
+			shoutname = "Anonymous"
+		} else {
+			shoutname = r.FormValue("Username")
+		}
 		entry := &Shoutbox{
-			Name:      r.FormValue("Username"),
-			Shout:     r.FormValue("Shout"),
-			Timestamp: time.Now(),
+			Name:       shoutname,
+			Shout:      r.FormValue("Shout"),
+			Remoteaddr: ip,
+			Timestamp:  time.Now(),
 		}
 		err = c.Insert(entry)
 		if err != nil {
 			log.Fatal(err)
+
 		}
 	}
 
@@ -59,7 +70,9 @@ func Mainpage(w http.ResponseWriter, r *http.Request) {
 
 	c := session.DB("mgodb").C("shouts")
 
-	query := c.Find(nil)
+	//query := c.Find(nil).sort({ $natural: -1})
+	query := c.Find(nil).Sort("-$natural")
+	//query := c.Find(nil)
 	//sh := Shoutbox{"Jeremy Saenz", "shout shout shout"}
 	var entries []Shoutbox
 	if err := query.All(&entries); err != nil {
