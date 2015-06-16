@@ -23,3 +23,5 @@ var s_reduce = function( key, values ) {
 function startcount() {
 	db.shouts.mapReduce(s_map, s_reduce, {out: "word_count"});
 }
+
+startcount();
