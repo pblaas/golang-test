@@ -4,13 +4,64 @@
  <title>ShoutBox</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud-1.0.4.min.js"></script>
+
 <style type="text/css">
 	.welcome-shout{
 		margin: 20px;
 	}
 </style>
+
+<script type="text/javascript">
+var words = [
+  {text: "Lorem", weight: 13, link: 'http://github.com/mistic100/jQCloud'},
+  {text: "Ipsum", weight: 10.5, link: 'http://www.strangeplanet.fr'},
+  {text: "Dolor", weight: 9.4, link: 'http://piwigo.org'}
+];
+
+$(document).ready(function() {
+        $("#demo").jQCloud(words);
+});
+
+</script>
+
+    <style type="text/css">
+      body {
+        background: #eee;
+        font-family: Helvetica, Arial, sans-serif;
+      }
+      #demo {
+        margin: 30px auto;
+        width: 600px;
+        height: 371px;
+        border: none;
+      }
+      #demo span.w10, #demo span.w9, #demo span.w8, #demo span.w7 {
+        text-shadow: 0px 1px 1px #ccc;
+      }
+      #demo span.w3, #demo span.w2, #demo span.w1 {
+        text-shadow: 0px 1px 1px #fff;
+      }
+      #footer {
+        font-size: 13px;
+        color: #aaa;
+        text-align: center;
+        width: 600px;
+        margin: 30px auto;
+        padding: 0.5em;
+        text-shadow: 0px 1px 1px #fff;
+        border-top: 1px dotted #ddd;
+      }
+      #footer a {
+        color: #0af;
+        text-decoration: none;
+      }
+    </style>
+
+
 </head>
 
     <body>
@@ -56,6 +107,16 @@
             {{ end }}
         </tbody>
 </table>
+<div id="demo" style="width: 550px; height: 250px; border: 0px solid #ccc;"></div>
 
+ <div id="footer">
+      <a href="https://github.com/pblaas/golang-test">Shoutbox</a> is an open-source <a href="http://golang.org">Go language</a> App by
+      <strong><a href="https://github.com/pblaas/golang-test">Pblaas Github</a></strong> based on: <br>
+      <a href="https://golang.org">Go language</a> |
+      <a href="https://www.mongodb.org">MongoDB</a> |
+      <a href="https://labix.org/mgo">mgo driver</a> |
+      <a href="http://getbootstrap.com/css/">CSS boostrap</a> |
+      <a href="http://mistic100.github.io/jQCloud/">jQCloud</a> 
+ </div>
 
 </html>
