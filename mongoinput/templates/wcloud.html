@@ -10,10 +10,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud-1.0.4.min.js"></script>
 
 <script type="text/javascript">
-var words = [
-  {text: "Lorem", weight: 1},
-  {text: "Ipsum", weight: 2},
-  {text: "Dolor", weight: 3},
+	var words = [
+            {{ range . }}
+		{text: {{ .Word }}, weight: {{ .Value }} } ,
+            {{ end }}
 ];
 
 $(document).ready(function() {

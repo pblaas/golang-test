@@ -20,6 +20,11 @@ type Shoutbox struct {
 	Timestamp  time.Time
 }
 
+type Wordcount struct {
+	Word  string `bson:"_id"`
+	Value int    `bson:"value"`
+}
+
 func Submitform(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	session, err := mgo.Dial("localhost")
@@ -100,12 +105,11 @@ func wcloudpage(w http.ResponseWriter, r *http.Request) {
 	//Optional. Switch the session to monotonic behavior
 	session.SetMode(mgo.Monotonic, true)
 
-	c := session.DB("mgodb").C("shouts")
+	c := session.DB("mgodb").C("word_count")
 
-	query := c.Find(nil).Sort("-$natural")
-	//query := c.Find(nil)
-	var entries []Shoutbox
-	if err := query.All(&entries); err != nil {
+	query := c.Find(nil)
+	var words []Wordcount
+	if err := query.All(&words); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -115,10 +119,11 @@ func wcloudpage(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	if err := tmpl.Execute(w, entries); err != nil {
+	if err := tmpl.Execute(w, words); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	fmt.Println("Results: ", words)
 
 }
 
