@@ -17,16 +17,20 @@
 
 <script type="text/javascript">
 var words = [
-  {text: "Lorem", weight: 13, link: 'http://github.com/mistic100/jQCloud'},
-  {text: "Ipsum", weight: 10.5, link: 'http://www.strangeplanet.fr'},
-  {text: "Dolor", weight: 9.4, link: 'http://piwigo.org'}
+  {text: "Lorem", weight: 1},
+  {text: "Ipsum", weight: 2},
+  {text: "Dolor", weight: 3},
 ];
 
 $(document).ready(function() {
         $("#demo").jQCloud(words);
 });
-
 </script>
+<script>
+ $(function(){
+   $("#wcloud").load("/wcloud"); 
+ });
+</script> 
 
     <style type="text/css">
       body {
@@ -99,7 +103,7 @@ $(document).ready(function() {
       </form>
     </div>
   </body>
-  <table class="table table-striped">
+<table class="table table-striped">
           <thead><tr><th>Name</th><th>Shout</th></tr></thead>
           <tbody>
             {{ range . }}
@@ -107,11 +111,12 @@ $(document).ready(function() {
             {{ end }}
         </tbody>
 </table>
-<div id="demo" style="width: 550px; height: 250px; border: 0px solid #ccc;"></div>
+
+<div id="wcloud"></div>
 
  <div id="footer">
       <a href="https://github.com/pblaas/golang-test">Shoutbox</a> is an open-source <a href="http://golang.org">Go language</a> App by
-      <strong><a href="https://github.com/pblaas/golang-test">Pblaas Github</a></strong> based on: <br>
+      <strong><a href="https://github.com/pblaas/golang-test">Pblaas</a></strong> based on: <br>
       <a href="https://golang.org">Go language</a> |
       <a href="https://www.mongodb.org">MongoDB</a> |
       <a href="https://labix.org/mgo">mgo driver</a> |
